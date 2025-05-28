@@ -6,12 +6,13 @@ class CustomContainerLinearAdmin extends StatelessWidget {
     required this.height,
     required this.width,
     required this.child,
-    super.key,
+    super.key, this.gradient,
   });
 
   final double height;
   final double width;
   final Widget child;
+  final Gradient? gradient;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class CustomContainerLinearAdmin extends StatelessWidget {
       height: height,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        gradient: LinearGradient(
+        gradient:gradient?? LinearGradient(
           colors: [
             ColorsDark.black1.withValues(alpha: 0.8),
             ColorsDark.black2.withValues(alpha: 0.8),

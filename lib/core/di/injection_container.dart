@@ -4,6 +4,7 @@ import 'package:shop_app/core/app/app_cubit/app_cubit.dart';
 
 import 'package:shop_app/core/services/graphql/api_service.dart';
 import 'package:shop_app/core/services/graphql/dio_factory.dart';
+import 'package:shop_app/features/admin/main/presentation/cubit/main_cubit.dart';
 import 'package:shop_app/features/auth/presentation/bloc/auth_bloc.dart';
 
 final sl = GetIt.instance;
@@ -11,6 +12,7 @@ final sl = GetIt.instance;
 Future<void> setupInjector() async {
   await _initCore();
   await _initAuth();
+  await _initMain();
 }
 
 Future<void> _initCore() async {
@@ -29,4 +31,8 @@ Future<void> _initAuth() async {
   sl.registerFactory(AuthBloc.new);
   // ..registerLazySingleton(() => AuthRepo(sl()))
   // ..registerLazySingleton(() => AuthDataSource(sl()));
+}
+
+Future<void> _initMain() async {
+  sl.registerFactory(MainCubit.new);
 }

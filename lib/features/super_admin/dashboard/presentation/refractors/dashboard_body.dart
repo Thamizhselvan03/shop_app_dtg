@@ -28,7 +28,7 @@ class DashboardBody extends StatelessWidget {
             //categories
             GestureDetector(
               onTap: (){
-                context.pushNamedAndRemoveUntil(AppRoutes.homeAdmin);
+                context.pushNamedAndRemoveUntil(AppRoutes.mainCustomer);
               },
               child: const DashboardContainer(
                 title: 'Categories',
