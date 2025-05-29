@@ -8,12 +8,14 @@ class CustomLinearButton extends StatelessWidget {
     required this.child,
     this.height,
     this.width,
+    this.gradient,
     super.key,
   });
   final VoidCallback onPressed;
   final Widget child;
   final double? height;
   final double? width;
+  final Gradient? gradient;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class CustomLinearButton extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          gradient: LinearGradient(
+          gradient:gradient?? LinearGradient(
             colors: [
               context.color.bluePinkLight!,
               context.color.bluePinkDark!,
