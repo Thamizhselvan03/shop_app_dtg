@@ -6,6 +6,7 @@ import 'package:shop_app/core/extensions/context_extensions.dart';
 import 'package:shop_app/features/admin/admin_home/presentation/screens/admin_home_screen.dart';
 import 'package:shop_app/features/admin/main/presentation/cubit/main_cubit.dart';
 import 'package:shop_app/features/admin/main/presentation/refactors/bottom_nav_bar.dart';
+import 'package:shop_app/features/admin/main/presentation/refactors/drawer_admin.dart';
 import 'package:shop_app/features/admin/main/presentation/refactors/main_customer_app_bar.dart';
 import 'package:shop_app/features/customer/home_customer/presentation/screens/home_customer_screens.dart';
 
@@ -17,7 +18,9 @@ class MainScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => sl<MainCubit>(),
       child: Scaffold(
-        appBar: const MainAdminAppBar(),
+        drawer: TwitterDrawer(),
+      //  appBar: AppBar(),
+       appBar: const MainAdminAppBar(),
         body: Container(
           constraints: const BoxConstraints.expand(),
           // decoration: BoxDecoration(

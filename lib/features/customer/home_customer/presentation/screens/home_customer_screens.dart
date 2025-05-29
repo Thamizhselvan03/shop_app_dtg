@@ -25,6 +25,7 @@ class HomeCustomerScreen extends StatelessWidget {
       child:  Scaffold(
         backgroundColor: Colors.white,
         appBar:  AppBar(
+
           automaticallyImplyLeading: false,
           backgroundColor: context.color.mainColor,
           elevation: 0,

@@ -28,35 +28,38 @@ class _SearchForProductsState extends State<SearchForProducts> {
           orElse: () => false,
         );
 
-        return CustomTextField(
-          controller: bloc.searchController,
-          keyboardType: TextInputType.emailAddress,
-          filled: true,
-          fillColour: const Color(0xFFF5FCF9),
-          hintText: 'Search for products',
-          onChanged: (value) {
-            bloc.add(GetAllProductsEvent.onTextChanged(value.toString(), fromVoice: false));
-            return null;
-          },
-          suffixIcon: IconButton(
-            icon: Icon(isListening ? Icons.stop : Icons.mic),
-            onPressed: () {
-              if (isListening) {
-                bloc.add(const GetAllProductsEvent.stopListening());
-              } else {
-                bloc.add(const GetAllProductsEvent.startListening());
-              }
+        return Padding(
+          padding: const EdgeInsets.all(8),
+          child: CustomTextField(
+            controller: bloc.searchController,
+            keyboardType: TextInputType.emailAddress,
+            filled: true,
+            fillColour: const Color(0xFFF5FCF9),
+            hintText: 'Search for products',
+            onChanged: (value) {
+              bloc.add(GetAllProductsEvent.onTextChanged(value.toString(), fromVoice: false));
+              return null;
             },
+            suffixIcon: IconButton(
+              icon: Icon(isListening ? Icons.stop : Icons.mic),
+              onPressed: () {
+                if (isListening) {
+                  bloc.add(const GetAllProductsEvent.stopListening());
+                } else {
+                  bloc.add(const GetAllProductsEvent.startListening());
+                }
+              },
+            ),
+            // suffixIcon: IconButton(
+            //   onPressed: () {
+            //     //  bloc.searchController.clear();
+            //     //  bloc.add(const GetAllUsersEvent.getAllUsers(isNotLoading: true));
+            //   },
+            //   icon: bloc.searchController.text.isEmpty
+            //       ? const SizedBox.shrink()
+            //       : const Icon(Icons.clear, color: ColorsDark.blueLight),
+            // ),
           ),
-          // suffixIcon: IconButton(
-          //   onPressed: () {
-          //     //  bloc.searchController.clear();
-          //     //  bloc.add(const GetAllUsersEvent.getAllUsers(isNotLoading: true));
-          //   },
-          //   icon: bloc.searchController.text.isEmpty
-          //       ? const SizedBox.shrink()
-          //       : const Icon(Icons.clear, color: ColorsDark.blueLight),
-          // ),
         );
       },
     );

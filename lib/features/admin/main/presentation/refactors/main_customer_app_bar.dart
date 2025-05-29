@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,8 +12,7 @@ import 'package:shop_app/core/extensions/context_extensions.dart';
 import 'package:shop_app/core/language/lang_keys.dart';
 import 'package:shop_app/features/admin/main/presentation/cubit/main_cubit.dart';
 
-class MainAdminAppBar extends StatelessWidget
-    implements PreferredSizeWidget {
+class MainAdminAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MainAdminAppBar({super.key});
 
   @override
@@ -31,10 +29,18 @@ class MainAdminAppBar extends StatelessWidget
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                IconButton(
+                  iconSize: 27.sp,
+                  onPressed: () {
+                    Scaffold.of(context).openDrawer();
+                  },
+                  icon: Icon(Icons.menu),
+                ),
+
                 CustomFadeInRight(
                   duration: 800,
                   child: TextApp(
-                    text: "Find Your Products",
+                    text: "Dashboard",
                     theme: context.textStyle.copyWith(
                       fontSize: 20.sp,
                       fontWeight: FontWeightHelper.bold,
@@ -46,13 +52,13 @@ class MainAdminAppBar extends StatelessWidget
                   duration: 800,
                   child: CustomLinearButton(
                     onPressed: () {
-                    //  context.pushName(AppRoutes.search);
+                      //  context.pushName(AppRoutes.search);
                     },
                     child: Center(
                       child: SvgPicture.asset(AppImages.notificationIcon),
                     ),
                   ),
-                )
+                ),
               ],
             );
           } else if (cubit.navBarEnum == NavBarEnum.favorites) {

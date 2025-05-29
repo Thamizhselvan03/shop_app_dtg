@@ -14,21 +14,22 @@ class RackList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Expanded(
       child: MasonryGridView.builder(
+        padding: EdgeInsets.only(bottom: 20, left: 5, right: 5),
         shrinkWrap: true,
         gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
         ),
-        itemCount: 10,
+        itemCount: 18,
         itemBuilder: (context, index) {
           return Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(5.0),
             child: GestureDetector(
-              onTap: (){
+              onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) =>  FoodCategories()),
+                  MaterialPageRoute(builder: (context) => FoodCategories()),
                 );
               },
               child: Container(
@@ -36,13 +37,16 @@ class RackList extends StatelessWidget {
 
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
+                  // color: const Color(0xFFF5F6F9),
+                  color: index % 2 == 0
+                      ? const Color(0xFFF5F6F9)
+                      : ColorsLight.pinkDark.withValues(alpha: .1),
                   border: Border.all(color: Colors.grey),
                 ),
                 child: Center(
                   child: TextApp(
                     text: 'Rack ${index + 1}',
                     theme: context.textStyle.copyWith(
-
                       fontFamily: FontFamilyHelper.poppinsEnglish,
                       fontSize: 14.sp,
                       fontWeight: FontWeightHelper.medium,

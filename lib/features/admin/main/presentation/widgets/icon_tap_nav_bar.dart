@@ -21,7 +21,7 @@ class IconTapNavBar extends StatelessWidget {
       onTap: onTap,
       child: SvgPicture.asset(
         icon,
-        color: isSelected ? context.color.navBarSelectedTab : Colors.grey,
+        color: isSelected ? context.color.bluePinkDark : Colors.grey,
         height: 25.h,
       ).animate(target: isSelected ? 1 : 0).scaleXY(end: 1.2),
     );

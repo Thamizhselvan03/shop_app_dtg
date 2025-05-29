@@ -41,7 +41,8 @@ class ShopApp extends StatelessWidget {
                   final cubit = context.read<AppCubit>();
                   return MaterialApp(
                     debugShowCheckedModeBanner: EnvVariable.instance.debugMode,
-                    theme: cubit.isDark ? themeLight() : themeDark(),
+                  theme: themeLight(),
+                  //  theme: cubit.isDark ? themeLight() : themeDark(),
                     locale: Locale(cubit.currentLangCode),
                     localeResolutionCallback:
                         AppLocalizationsSetup.localeResolutionCallback,

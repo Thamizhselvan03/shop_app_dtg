@@ -16,10 +16,7 @@ class HomeCustomerBody extends StatelessWidget {
     return Column(
       children: [
         // Search For Users
-        Padding(
-          padding: const EdgeInsets.all(8),
-          child: const SearchForProducts(),
-        ),
+        const SearchForProducts(),
         SizedBox(height: 10.h),
         RackList(),
       ],

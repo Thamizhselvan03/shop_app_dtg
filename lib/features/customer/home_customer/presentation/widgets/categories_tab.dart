@@ -1,15 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:shop_app/core/common/style/colors/colors_dark.dart';
 import 'package:shop_app/core/common/style/colors/colors_light.dart';
-import 'package:shop_app/core/common/style/fonts/font_family_helper.dart';
-import 'package:shop_app/core/common/style/fonts/font_weight_helper.dart';
 import 'package:shop_app/core/common/widgets/custom_container_linear_admin.dart';
+import 'package:shop_app/core/common/widgets/custom_text_field.dart';
 import 'package:shop_app/core/common/widgets/text_app.dart';
 import 'package:shop_app/core/extensions/context_extensions.dart';
 import 'package:shop_app/features/customer/home_customer/presentation/widgets/product_card.dart';
-import 'package:shop_app/features/customer/home_customer/presentation/widgets/tab_content.dart';
 
 class FoodCategories extends StatelessWidget {
   const FoodCategories({super.key});
@@ -18,42 +15,71 @@ class FoodCategories extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const GradientAppBarWidget(),
-      body: Padding(
-        padding: EdgeInsets.symmetric(vertical: 10.h),
-        child: ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: demoCarts.length,
-          itemBuilder: (context, index) => Padding(
-            padding: const EdgeInsets.symmetric(vertical: 5),
-            child: Row(
-              children: [
-                SizedBox(width: 5),
-                CustomContainerLinearAdmin(
-                  gradient: LinearGradient(
-                    colors: [  ColorsLight.pinkDark,
-                      ColorsLight.pinkDark.withValues(alpha: 0.8),],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                  height: 100,
-                  width: 40,
-                  child: Center(
-                    child: TextApp(
-                      text: 'R${index + 1}',
-                      theme: context.textStyle.copyWith(
-                        fontSize: 14.sp,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
+      body: Column(
+        children: [
+          const SizedBox(height: 10),
 
-                Expanded(child: CartCard(cart: demoCarts[index])),
-              ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: CustomTextField(
+              controller: TextEditingController(),
+              keyboardType: TextInputType.emailAddress,
+              filled: true,
+              fillColour: const Color(0xFFF5FCF9),
+              hintText: 'Search for products',
+
+              suffixIcon: IconButton(icon: Icon(Icons.mic), onPressed: () {}),
+              // suffixIcon: IconButton(
+              //   onPressed: () {
+              //     //  bloc.searchController.clear();
+              //     //  bloc.add(const GetAllUsersEvent.getAllUsers(isNotLoading: true));
+              //   },
+              //   icon: bloc.searchController.text.isEmpty
+              //       ? const SizedBox.shrink()
+              //       : const Icon(Icons.clear, color: ColorsDark.blueLight),
+              // ),
             ),
           ),
-        ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 10.h),
+            child: ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: demoCarts.length,
+              itemBuilder: (context, index) => Padding(
+                padding: const EdgeInsets.symmetric(vertical: 5),
+                child: Row(
+                  children: [
+                    SizedBox(width: 5),
+                    CustomContainerLinearAdmin(
+                      gradient: LinearGradient(
+                        colors: [
+                          ColorsLight.pinkDark,
+                          ColorsLight.pinkDark.withValues(alpha: 0.8),
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      height: 100,
+                      width: 40,
+                      child: Center(
+                        child: TextApp(
+                          text: 'R${index + 1}',
+                          theme: context.textStyle.copyWith(
+                            fontSize: 14.sp,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    Expanded(child: CartCard(cart: demoCarts[index])),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
     /* return Expanded(
@@ -119,37 +145,34 @@ class GradientAppBarWidget extends StatelessWidget
     return PreferredSize(
       preferredSize: const Size.fromHeight(80.0),
       child: Container(
-        padding: EdgeInsets.fromLTRB(5,20,5,0),
+        padding: EdgeInsets.fromLTRB(5, 20, 5, 0),
         height: 90.0,
         decoration: BoxDecoration(
+          borderRadius: BorderRadiusGeometry.vertical(
+            bottom: Radius.circular(15),
+          ),
           gradient: LinearGradient(
-            colors: [  ColorsLight.pinkDark,
-              ColorsLight.pinkDark.withValues(alpha: 0.8),],
+            colors: [
+              ColorsLight.pinkDark,
+              ColorsLight.pinkDark.withValues(alpha: 0.8),
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                'Rack 1',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 1,
-                ),
+        child: Padding(
+          padding: EdgeInsets.only(top: 15, left: 10, right: 5),
+          child: Center(
+            child: TextApp(
+              text: 'Rack 1',
+              theme: context.textStyle.copyWith(
+                color: Colors.white,
+                fontSize: 18.sp,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1,
               ),
             ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(CupertinoIcons.search, color: Colors.white),
-            ),
-          ],
+          ),
         ),
       ),
     );

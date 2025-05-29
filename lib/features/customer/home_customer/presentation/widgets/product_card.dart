@@ -1,54 +1,112 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shop_app/core/common/style/colors/colors_dark.dart';
+import 'package:shop_app/features/customer/home_customer/presentation/widgets/shimmer_arrow.dart';
 
-
-class CartCard extends StatelessWidget {
+class CartCard extends StatefulWidget {
   const CartCard({required this.cart, super.key});
 
   final Cart cart;
+
+  @override
+  State<CartCard> createState() => _CartCardState();
+}
+
+class _CartCardState extends State<CartCard> {
+  final ScrollController _scrollController = ScrollController();
+  bool _showScrollButton = true;
+
+  void _scrollRight() {
+    _scrollController.animateTo(
+      _scrollController.offset + 100,
+      duration: Duration(milliseconds: 300),
+      curve: Curves.easeOut,
+    );
+  }
+  void _scrollListener() {
+    if (_scrollController.offset >=
+        _scrollController.position.maxScrollExtent &&
+        !_scrollController.position.outOfRange) {
+      setState(() {
+        _showScrollButton = false;
+      });
+    } else {
+      setState(() {
+        _showScrollButton = true;
+      });
+    }
+  }
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_scrollListener);
+  }
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 93.h,
 
-      child: ListView.builder(
-        padding: EdgeInsets.symmetric(horizontal: 10.w),
+      child: Stack(
+        children: [
+          ListView.builder(
+            controller: _scrollController,
+            padding: EdgeInsets.symmetric(horizontal: 10.w),
 
-        scrollDirection: Axis.horizontal,
-        itemCount: 5,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.all(1),
-            child: SizedBox(
-              height: 40.h,
-              width: 75.w,
-              child: Container(
-                padding: const EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFF5F6F9),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Column(
-                  children: [
-                    Image.network(
-                      cart.product.images[0],
-                      height: 30.h,
-                      width: 30.h,
+            scrollDirection: Axis.horizontal,
+            itemCount: 5,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.all(1),
+                child: SizedBox(
+                  height: 40.h,
+                  width: 75.w,
+                  child: Container(
+                    padding: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF5F6F9),
+                      borderRadius: BorderRadius.circular(15),
                     ),
-                    Text(
-                      cart.product.title,
-                      style: TextStyle(color: Colors.black, fontSize: 12.sp),
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.center,
+                    child: Column(
+                      children: [
+                        Image.network(
+                          widget.cart.product.images[0],
+                          height: 30.h,
+                          width: 30.h,
+                        ),
+                        Text(
+                          widget.cart.product.title,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 12.sp,
+                          ),
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-          );
-        },
+              );
+            },
+          ),
+          if (_showScrollButton)
+            Align(
+            alignment: Alignment.centerRight,
+            child: ShimmerArrows(),
+            // child: IconButton(
+            //   style: IconButton.styleFrom(backgroundColor:ColorsDark.black1.withValues(alpha: .05), ),
+            //   onPressed: _scrollRight,
+            //   icon: Icon(Icons.arrow_forward_ios,color: ColorsDark.black1.withValues(alpha: .7),),
+            // ),
+          ),
+        ],
       ),
     );
   }
@@ -157,8 +215,6 @@ const trashIcon = '''
 <path fill-rule="evenodd" clip-rule="evenodd" d="M10.7812 15.6604V7.16981C10.7812 6.8566 11.0334 6.60377 11.3438 6.60377C11.655 6.60377 11.9062 6.8566 11.9062 7.16981V15.6604C11.9062 15.9736 11.655 16.2264 11.3438 16.2264C11.0334 16.2264 10.7812 15.9736 10.7812 15.6604ZM6.09375 15.6604V7.16981C6.09375 6.8566 6.34594 6.60377 6.65625 6.60377C6.9675 6.60377 7.21875 6.8566 7.21875 7.16981V15.6604C7.21875 15.9736 6.9675 16.2264 6.65625 16.2264C6.34594 16.2264 6.09375 15.9736 6.09375 15.6604ZM15 16.6038C15 17.8519 13.9903 18.8679 12.75 18.8679H5.25C4.00969 18.8679 3 17.8519 3 16.6038V3.96226H15V16.6038ZM7.21875 1.50943C7.21875 1.30094 7.38656 1.13208 7.59375 1.13208H10.4062C10.6134 1.13208 10.7812 1.30094 10.7812 1.50943V2.83019H7.21875V1.50943ZM17.4375 2.83019H11.9062V1.50943C11.9062 0.677359 11.2331 0 10.4062 0H7.59375C6.76688 0 6.09375 0.677359 6.09375 1.50943V2.83019H0.5625C0.252187 2.83019 0 3.08302 0 3.39623C0 3.70943 0.252187 3.96226 0.5625 3.96226H1.875V16.6038C1.875 18.4764 3.38906 20 5.25 20H12.75C14.6109 20 16.125 18.4764 16.125 16.6038V3.96226H17.4375C17.7488 3.96226 18 3.70943 18 3.39623C18 3.08302 17.7488 2.83019 17.4375 2.83019Z" fill="#FF4848"/>
 </svg>
 ''';
-
-
 
 // Text.rich(
 //   TextSpan(
